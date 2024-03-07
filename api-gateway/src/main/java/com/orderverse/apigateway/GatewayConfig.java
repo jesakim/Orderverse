@@ -14,8 +14,11 @@ public class GatewayConfig {
         return builder.routes()
                 .route("order-service-route", r -> r
                         .path("/orders/**")
-                        .filters(f -> f.stripPrefix(1)) // Remove the prefix from the request path
-                        .uri("lb://order-service")
+                        .uri("lb://order-service/orders")
+                )
+                .route("product-service-route", r -> r
+                        .path("/products/**")
+                        .uri("lb://product-service/products")
                 )
                 .build();
     }
